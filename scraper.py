@@ -30,15 +30,21 @@ soup = BeautifulSoup(response.text, features="html.parser")
 # see: https://www.crummy.com/software/BeautifulSoup/bs4/doc/#find-all
 elements = soup.find_all("span", "title")
 
+for element in elements:
+    print(element) #> <span class="title">Macbeth</span>
+    print(element.text) #> Macbeth
+    print("---")
+
+print("-----------------------")
+print("WRITING TO CSV...")
+print("-----------------------")
+
 with open("books.csv", "w") as csv_file:
     # see: https://docs.python.org/3/library/csv.html#csv.DictWriter
     writer = csv.DictWriter(csv_file, fieldnames=["author", "title"])
     # writes header row with fieldnames set above:
     writer.writeheader()
 
+    # loop through all elements and write each book title to its own row:
     for element in elements:
-        print(element) #> <span class="title">Macbeth</span>
-        print(element.text) #> Macbeth
-        print("---")
-        # write each book title to its own row:
         writer.writerow({"author": "Shakespeare", "title": element.text})
