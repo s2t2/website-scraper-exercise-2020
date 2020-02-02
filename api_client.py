@@ -1,4 +1,4 @@
-# api-client-exercise/get_data.py
+# web-scraper-exercise/api_client.py
 
 import requests
 import json
